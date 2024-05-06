@@ -1,0 +1,52 @@
+using System;
+
+class MaxSubarrayLengthSameElement
+{
+static void Main(string[] args)
+{
+// Создание массива
+int[] arr = { 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 3, 4, 2, 2, 2, 2, 2 };
+
+    // Нахождение максимального подмассива с повторяющимися числами
+    int maxLength = FindMaxSubarrayLengthSameElement(arr);
+    int maxElement = arr[0]; // Элемент, который повторяется больше всего
+    int maxElementCount = 0; // Подсчет повторений
+
+    // Вывод результата
+    Console.WriteLine("Максимальная длина подмассива: " + maxLength);
+    Console.WriteLine("Повторяющийся элемент: " + maxElement);
+    Console.WriteLine("Количество повторений: " + maxElementCount);
+    Console.WriteLine("Массив: " + string.Join(", ", arr));
+}
+
+static int FindMaxSubarrayLengthSameElement(int[] arr)
+{
+    int maxLength = 0;
+    int currentLength = 0;
+    int maxElement = arr[0];
+    int maxElementCount = 0; // Инициализировать счетчик повторений
+
+    for (int i = 0; i < arr.Length; i++)
+    {
+        if (arr[i] == maxElement)
+        {
+            currentLength++;
+        }
+        else
+        {
+            maxElementCount += currentLength; // Добавить текущий подмассив
+            currentLength = 1;
+            maxElement = arr[i];
+        }
+
+        maxLength = Math.Max(maxLength, currentLength);
+    }
+
+    if (currentLength > 0) // Проверить последний подмассив
+    {
+        maxElementCount += currentLength;
+    }
+
+    return maxLength;
+}
+}
